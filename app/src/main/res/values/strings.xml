@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">OneDesign</string>
-    <string name="hide">隐藏桌面图标</string>
+    <string name="hide">隐藏图标</string>
     <string name="SETTINGS_LOG">1. 修改手机状态为官方；</string>
     <string name="SSRM_LOG">2. 移除SSRM弹窗警告；</string>
     <string name="BILI_LOG">3. 解锁bilibili会员画质；</string>
-    <string name="FORCEDARK_LOG">4. 强制开启暗黑模式（开发者）；</string>
-    <string name="TG_LOG">5. 解锁tg会员（Premium）；</string>
-    <string name="TELE_LOG">6. 本地化港版电话，显示来电归属</string>
+    <string name="FORCEDARK_LOG">4. 强制开启开发者暗黑模式；</string>
+    <string name="TG_LOG">5. 解锁tg会员Premium；</string>
+    <string name="TELE_LOG">6. 本地化港版电话，显示来电归属；</string>
 </resources>

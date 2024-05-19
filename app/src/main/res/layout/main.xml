@@ -78,10 +78,11 @@
             android:id="@+id/button_hide_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:padding="16dp"
             android:text="@string/hide"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>
