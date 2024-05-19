@@ -1,0 +1,36 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'qlenlen.OneDesign'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "qlenlen.OneDesign"
+        minSdk 33
+        targetSdk 34
+        versionCode 240519
+        versionName "24.05.19"
+    }
+
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            outputFileName = "OneDsign[${defaultConfig.versionName}].apk"
+        }
+    }
+
+    buildTypes {
+        release {
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    compileOnly 'de.robv.android.xposed:api:82'
+}

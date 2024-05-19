@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="xposedscope" >
+        <item>com.android.settings</item>
+        <item>com.sec.android.sdhms</item>
+        <item>com.bilibili.app.in</item>
+        <item>tv.danmaku.bili</item>
+        <item>org.telegram.messenger.web</item>
+        <item>com.samsung.android.dialer</item>
+    </string-array>
+</resources>
