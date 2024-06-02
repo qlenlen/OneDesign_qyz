@@ -1,0 +1,36 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'qyz.OneDesign'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "qyz.OneDesign"
+        minSdk 33
+        targetSdk 34
+        versionCode 240602
+        versionName "240602"
+    }
+
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            outputFileName = "OneDsign[${defaultConfig.versionName}].apk"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    compileOnly libs.xposed
+}
