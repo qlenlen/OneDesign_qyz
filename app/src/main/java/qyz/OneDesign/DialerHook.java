@@ -25,11 +25,15 @@ public class DialerHook {
               return true;
             }
           });
+    } catch (Throwable e) {
+      log(e);
+    }
 
+    try {
       XposedHelpers.findAndHookMethod(
           "com.samsung.android.dialtacts.util.CscFeatureUtil",
           DialerHook.classLoader,
-          "isOpStyleCHNlmpl",
+          "isOpStyleCHNImpl",
           new XC_MethodReplacement() {
             @Override
             protected Boolean replaceHookedMethod(MethodHookParam param) {
@@ -51,17 +55,6 @@ public class DialerHook {
               return false;
             }
           });
-
-      XposedHelpers.findAndHookMethod(
-          "com.samsung.android.dialtacts.util.CscFeatureUtil",
-          DialerHook.classLoader,
-          "isOpStyleHKTWlmpl",
-          new XC_MethodReplacement() {
-            @Override
-            protected Boolean replaceHookedMethod(MethodHookParam param) {
-              return false;
-            }
-          });
     } catch (Throwable e) {
       log(e);
     }
@@ -71,17 +64,6 @@ public class DialerHook {
           "com.samsung.android.dialtacts.util.CscFeatureUtil",
           DialerHook.classLoader,
           "getOpStyleVariation",
-          new XC_MethodReplacement() {
-            @Override
-            protected String replaceHookedMethod(MethodHookParam param) {
-              return "CHN";
-            }
-          });
-
-      XposedHelpers.findAndHookMethod(
-          "com.samsung.android.dialtacts.util.CscFeatureUtil",
-          DialerHook.classLoader,
-          "getOpStyleVariationlmpl",
           new XC_MethodReplacement() {
             @Override
             protected String replaceHookedMethod(MethodHookParam param) {
