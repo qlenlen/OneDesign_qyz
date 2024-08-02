@@ -10,13 +10,13 @@ android {
         applicationId "qyz.OneDesign"
         minSdk 33
         targetSdk 34
-        versionCode 240602
-        versionName "240602"
+        versionCode 240719
+        versionName "240719"
     }
 
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
-            outputFileName = "OneDsign[${defaultConfig.versionName}].apk"
+            outputFileName = "QyzDesign[${defaultConfig.versionName}].apk"
         }
     }
 

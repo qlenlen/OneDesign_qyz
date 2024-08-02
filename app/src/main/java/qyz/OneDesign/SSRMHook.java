@@ -39,8 +39,15 @@ public class SSRMHook {
     // for myself
     if (Build.ID.equals("TP1A.220624.014")) {
       _removeSSRM("I1.K", "u");
-    } else {
+    } else if (Build.ID.equals("UP1A.231005.007")) {
       _removeSSRM("M1.P", "A");
+    } else {
+      try {
+        _removeSSRM("I1.K", "u");
+        _removeSSRM("M1.P", "A");
+      } catch (Throwable ignored) {
+      }
+      log("ssrm: not support for this ROM yet");
     }
   }
 }
