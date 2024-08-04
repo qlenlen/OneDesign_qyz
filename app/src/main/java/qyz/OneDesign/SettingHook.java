@@ -16,17 +16,80 @@ public class SettingHook {
 
   public static void doHook(ClassLoader classLoader) {
     SettingHook.classLoader = classLoader;
-    makeOfficial();
-//    dark();
+    setOfficial();
+  }
+
+  private static void setOfficial() {
+    try {
+      findAndHookMethod(
+          TARGET_CLASS,
+          SettingHook.classLoader,
+          "checkRootingCondition",
+          new XC_MethodReplacement() {
+            @Override
+            protected Boolean replaceHookedMethod(MethodHookParam param) {
+              log("QyzDesign: rewrite checkRootingCondition to false");
+              return false;
+            }
+          });
+    } catch (Throwable ignored) {
+    }
+
+    try {
+      findAndHookMethod(
+          "com.samsung.android.settings.Rune",
+          SettingHook.classLoader,
+          "isStatusInfoDeviceRootBadge",
+          new XC_MethodReplacement() {
+            @Override
+            protected Boolean replaceHookedMethod(MethodHookParam param) {
+              log("QyzDesign: rewrite isStatusInfoDeviceRootBadge to false");
+              return false;
+            }
+          });
+    } catch (Throwable ignored) {
+    }
+
+    try {
+      findAndHookMethod(
+          TARGET_CLASS,
+          SettingHook.classLoader,
+          "isAlterModel",
+          new XC_MethodReplacement() {
+            @Override
+            protected Boolean replaceHookedMethod(MethodHookParam param) {
+              log("QyzDesign: rewrite isAlterModel to false");
+              return false;
+            }
+          });
+    } catch (Throwable ignored) {
+    }
+
+    try {
+      findAndHookMethod(
+          TARGET_CLASS,
+          SettingHook.classLoader,
+          "isPhoneStatusUnlocked",
+          new XC_MethodReplacement() {
+            @Override
+            protected Boolean replaceHookedMethod(MethodHookParam param) {
+              log("QyzDesign: rewrite isPhoneStatusUnlocked to false");
+              return false;
+            }
+          });
+    } catch (Throwable ignored) {
+    }
   }
 
   public static void dark() {
     try {
       XposedHelpers.callMethod(
           XposedHelpers.findClass(
-              "com.android.settings.development.ForceDarkPreferenceController", classLoader),
+              "com.android.settings.development.ForceDarkPreferenceController",
+              SettingHook.classLoader),
           "onPreferenceChange",
-          XposedHelpers.findClassIfExists("androidx.preference.Preference", SettingHook.classLoader)
+          XposedHelpers.findClassIfExists("androidx.preference.Preference",
+                  SettingHook.classLoader)
               .newInstance(),
           true);
       log("ForceDarkPreferenceController onPerferenceChange");
@@ -70,56 +133,6 @@ public class SettingHook {
               // call method spontaneously
               XposedHelpers.callMethod(preference, "setChecked", true);
               return null;
-            }
-          });
-    } catch (Throwable e) {
-      log(e);
-    }
-  }
-
-  private static void makeOfficial() {
-    try {
-      findAndHookMethod(
-          TARGET_CLASS,
-          SettingHook.classLoader,
-          "checkRootingCondition",
-          new XC_MethodReplacement() {
-            @Override
-            protected Boolean replaceHookedMethod(MethodHookParam param) {
-              log("rewrite checkRootingCondition to false");
-              return false;
-            }
-          });
-    } catch (Throwable e) {
-      log(e);
-    }
-
-    try {
-      findAndHookMethod(
-          TARGET_CLASS,
-          SettingHook.classLoader,
-          "isAlterModel",
-          new XC_MethodReplacement() {
-            @Override
-            protected Boolean replaceHookedMethod(MethodHookParam param) {
-              log("rewrite isAlterModel to false");
-              return false;
-            }
-          });
-    } catch (Throwable e) {
-      log(e);
-    }
-
-    try {
-      findAndHookMethod(
-          TARGET_CLASS,
-          SettingHook.classLoader,
-          "isPhoneStatusUnlocked",
-          new XC_MethodReplacement() {
-            @Override
-            protected Boolean replaceHookedMethod(MethodHookParam param) {
-              log("rewrite isPhoneStatusUnlocked to true");
-              return true;
             }
           });
     } catch (Throwable e) {

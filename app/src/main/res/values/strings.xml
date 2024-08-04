@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">QyzDesign</string>
+    <string name="function_overview">功能概览</string>
     <string name="hide">隐藏图标</string>
     <string name="SETTINGS_LOG">修正软件状态为官方 √</string>
     <string name="SSRM_LOG">移除SSRM弹窗警告 √</string>
     <string name="TELE_LOG">使港版显示来电归属 √</string>
-    <string name="CAMERA_LOG">关闭快门声音(ONEUI 5.1)</string>
+    <string name="BILI_LOG">解锁bilibili会员画质 √</string>
 </resources>

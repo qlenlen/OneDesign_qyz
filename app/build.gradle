@@ -10,8 +10,8 @@ android {
         applicationId "qyz.OneDesign"
         minSdk 33
         targetSdk 34
-        versionCode 240719
-        versionName "240719"
+        versionCode 240804
+        versionName "240804"
     }
 
     applicationVariants.configureEach { variant ->
@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
         }
     }
     compileOptions {
@@ -33,4 +33,5 @@ android {
 
 dependencies {
     compileOnly libs.xposed
+    implementation libs.material
 }

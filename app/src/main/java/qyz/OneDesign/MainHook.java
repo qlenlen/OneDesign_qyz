@@ -10,11 +10,22 @@ public class MainHook implements IXposedHookLoadPackage {
   @Override
   public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) {
 
+    // unlock better video quality for bilibili
+    if (lpparam.packageName.equals(Packages.BILIBILI_GOOGLE)
+        || lpparam.packageName.equals(Packages.BILIBILI)) {
+      try {
+        log("Detected: com.bilibili.app.in || tv.danmaku.bili");
+        BiliHook.doHook(lpparam.classLoader);
+      } catch (Throwable e) {
+        log(e);
+      }
+    }
+
     // set phone condition to unrooted
     if (lpparam.packageName.equals(Packages.SETTINGS)) {
       try {
         log("Detected: " + Packages.SETTINGS);
-         SettingHook.doHook(lpparam.classLoader);
+        SettingHook.doHook(lpparam.classLoader);
       } catch (Throwable e) {
         log(e);
       }
@@ -34,7 +45,7 @@ public class MainHook implements IXposedHookLoadPackage {
     if (lpparam.packageName.equals(Packages.SAMSUNG_DIALER)) {
       try {
         log("Detected: " + Packages.SAMSUNG_DIALER);
-         DialerHook.doHook(lpparam.classLoader);
+        DialerHook.doHook(lpparam.classLoader);
       } catch (Throwable e) {
         log(e);
       }
@@ -44,7 +55,7 @@ public class MainHook implements IXposedHookLoadPackage {
     if (lpparam.packageName.equals(Packages.CAMERA)) {
       try {
         log("Detected: " + Packages.CAMERA);
-        CameraHook.doHook(lpparam.classLoader);
+//        CameraHook.doHook(lpparam.classLoader);
       } catch (Throwable e) {
         log(e);
       }

@@ -25,7 +25,7 @@ public class SSRMHook {
           new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) {
-              log("stop ssrm");
+              log("QyzDesign: stop ssrm");
               return null;
             }
           });
@@ -36,10 +36,11 @@ public class SSRMHook {
 
 
   public static void removeSSRM() {
-    // for myself
-    if (Build.ID.equals("TP1A.220624.014")) {
+    String buildId = Build.ID;
+
+    if (buildId.equals("TP1A.220624.014")) {
       _removeSSRM("I1.K", "u");
-    } else if (Build.ID.equals("UP1A.231005.007")) {
+    } else if (buildId.equals("UP1A.231005.007")) {
       _removeSSRM("M1.P", "A");
     } else {
       try {

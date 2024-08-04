@@ -3,8 +3,9 @@ package qyz.OneDesign;
 import static de.robv.android.xposed.XposedBridge.log;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 
-import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XposedHelpers;
+import android.content.Context;
+
+import de.robv.android.xposed.XC_MethodReplacement;
 
 public class CameraHook {
   private static ClassLoader classLoader;
@@ -18,17 +19,31 @@ public class CameraHook {
 
     try {
       findAndHookMethod(
-          XposedHelpers.findClass(
-              "com.samsung.android.feature.SemCscFeature", CameraHook.classLoader),
-          "getBoolean",
-          String.class,
-          new XC_MethodHook() {
+          "com.sec.android.app.camera.audio.CameraAudioManagerImpl",
+          CameraHook.classLoader,
+          "isShutterSoundEnabled",
+          new XC_MethodReplacement() {
             @Override
-            protected void beforeHookedMethod(MethodHookParam param) {
-              if (param.args[0].equals("CscFeature_Camera_ShutterSoundMenu")) {
-                log("CscFeature_Camera_EnableCameraShutterSoundMenu");
-                param.setResult(true);
-              }
+            protected Boolean replaceHookedMethod(MethodHookParam param) {
+              log("QyzDesign: rewrite isShutterSoundEnabled to true");
+              return true;
+            }
+          });
+    } catch (Throwable e) {
+      log(e);
+    }
+
+    try {
+      findAndHookMethod(
+          "com.sec.android.app.camera.util.AudioUtil",
+          CameraHook.classLoader,
+          "isForceShutterSoundRequired",
+          Context.class,
+          new XC_MethodReplacement() {
+            @Override
+            protected Boolean replaceHookedMethod(MethodHookParam param) {
+              log("QyzDesign: rewrite isForceShutterSoundRequired to true");
+              return true;
             }
           });
     } catch (Throwable e) {

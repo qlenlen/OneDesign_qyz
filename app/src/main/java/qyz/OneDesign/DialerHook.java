@@ -7,16 +7,17 @@ import de.robv.android.xposed.XposedHelpers;
 
 public class DialerHook {
   private static ClassLoader classLoader;
+  private static final String hookClassName = "com.samsung.android.dialtacts.util.CscFeatureUtil";
 
   public static void doHook(ClassLoader classLoader) {
     DialerHook.classLoader = classLoader;
-    show();
+    showLocInfo();
   }
 
-  public static void show() {
+  public static void showLocInfo() {
     try {
       XposedHelpers.findAndHookMethod(
-          "com.samsung.android.dialtacts.util.CscFeatureUtil",
+          DialerHook.hookClassName,
           DialerHook.classLoader,
           "isOpStyleCHN",
           new XC_MethodReplacement() {
@@ -31,7 +32,7 @@ public class DialerHook {
 
     try {
       XposedHelpers.findAndHookMethod(
-          "com.samsung.android.dialtacts.util.CscFeatureUtil",
+          DialerHook.hookClassName,
           DialerHook.classLoader,
           "isOpStyleCHNImpl",
           new XC_MethodReplacement() {
@@ -46,7 +47,7 @@ public class DialerHook {
 
     try {
       XposedHelpers.findAndHookMethod(
-          "com.samsung.android.dialtacts.util.CscFeatureUtil",
+          DialerHook.hookClassName,
           DialerHook.classLoader,
           "isOpStyleHKTW",
           new XC_MethodReplacement() {
@@ -61,9 +62,54 @@ public class DialerHook {
 
     try {
       XposedHelpers.findAndHookMethod(
-          "com.samsung.android.dialtacts.util.CscFeatureUtil",
+          DialerHook.hookClassName,
+          DialerHook.classLoader,
+          "getEnableYellowPageImpl",
+          new XC_MethodReplacement() {
+            @Override
+            protected Boolean replaceHookedMethod(MethodHookParam param) {
+              return true;
+            }
+          });
+    } catch (Throwable e) {
+      log(e);
+    }
+
+    try {
+      XposedHelpers.findAndHookMethod(
+          DialerHook.hookClassName,
+          DialerHook.classLoader,
+          "getShowLocalInfoDuringDial",
+          new XC_MethodReplacement() {
+            @Override
+            protected Boolean replaceHookedMethod(MethodHookParam param) {
+              return true;
+            }
+          });
+    } catch (Throwable e) {
+      log(e);
+    }
+
+    try {
+      XposedHelpers.findAndHookMethod(
+          DialerHook.hookClassName,
           DialerHook.classLoader,
           "getOpStyleVariation",
+          new XC_MethodReplacement() {
+            @Override
+            protected String replaceHookedMethod(MethodHookParam param) {
+              return "CHN";
+            }
+          });
+    } catch (Throwable e) {
+      log(e);
+    }
+
+    try {
+      XposedHelpers.findAndHookMethod(
+          DialerHook.hookClassName,
+          DialerHook.classLoader,
+          "getOpStyleVariationImpl",
           new XC_MethodReplacement() {
             @Override
             protected String replaceHookedMethod(MethodHookParam param) {
