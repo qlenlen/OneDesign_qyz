@@ -11,7 +11,7 @@ android {
         minSdk 33
         targetSdk 34
         versionCode 240804
-        versionName "240804"
+        versionName "24.08.04"
     }
 
     applicationVariants.configureEach { variant ->
@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            debuggable false
         }
     }
     compileOptions {
