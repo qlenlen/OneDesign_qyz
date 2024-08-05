@@ -55,7 +55,17 @@ public class MainHook implements IXposedHookLoadPackage {
     if (lpparam.packageName.equals(Packages.CAMERA)) {
       try {
         log("Detected: " + Packages.CAMERA);
-//        CameraHook.doHook(lpparam.classLoader);
+        // CameraHook.doHook(lpparam.classLoader);
+      } catch (Throwable e) {
+        log(e);
+      }
+    }
+
+    // fake sales_code to CHC
+    if (lpparam.packageName.equals(Packages.CLOCK)) {
+      try {
+        log("Detected: " + Packages.CLOCK);
+        ClockHook.doHook(lpparam.classLoader);
       } catch (Throwable e) {
         log(e);
       }

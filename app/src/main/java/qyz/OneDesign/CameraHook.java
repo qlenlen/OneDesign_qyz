@@ -1,11 +1,9 @@
 package qyz.OneDesign;
 
 import static de.robv.android.xposed.XposedBridge.log;
-import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 
-import android.content.Context;
-
-import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XposedHelpers;
 
 public class CameraHook {
   private static ClassLoader classLoader;
@@ -16,38 +14,38 @@ public class CameraHook {
   }
 
   public static void shutter() {
-
-    try {
-      findAndHookMethod(
-          "com.sec.android.app.camera.audio.CameraAudioManagerImpl",
-          CameraHook.classLoader,
-          "isShutterSoundEnabled",
-          new XC_MethodReplacement() {
-            @Override
-            protected Boolean replaceHookedMethod(MethodHookParam param) {
-              log("QyzDesign: rewrite isShutterSoundEnabled to true");
-              return true;
+    XposedHelpers.findAndHookMethod("android.os.SystemProperties", CameraHook.classLoader, "get", String.class,
+        new XC_MethodHook() {
+          @Override
+          protected void beforeHookedMethod(MethodHookParam param) {
+            String key = (String) param.args[0];
+            if (key.equals("ro.csc.sales_code")) {
+              param.setResult("CHC");
+              log("SystemProperties: ro.csc.sales_code");
             }
-          });
-    } catch (Throwable e) {
-      log(e);
-    }
+          }
+        });
 
-    try {
-      findAndHookMethod(
-          "com.sec.android.app.camera.util.AudioUtil",
-          CameraHook.classLoader,
-          "isForceShutterSoundRequired",
-          Context.class,
-          new XC_MethodReplacement() {
-            @Override
-            protected Boolean replaceHookedMethod(MethodHookParam param) {
-              log("QyzDesign: rewrite isForceShutterSoundRequired to true");
-              return true;
+    XposedHelpers.findAndHookMethod("android.os.SemSystemProperties", CameraHook.classLoader, "get", String.class,
+        new XC_MethodHook() {
+          @Override
+          protected void beforeHookedMethod(MethodHookParam param) {
+            String key = (String) param.args[0];
+            log("SemSystemProperties: " + key);
+            if (key.equals("ro.csc.countryiso_code")) {
+              param.setResult("CN");
+              log("ro.csc.countryiso_code");
             }
-          });
-    } catch (Throwable e) {
-      log(e);
-    }
+            if (key.equals("ro.csc.country_code")) {
+              param.setResult("China");
+              log("ro.csc.country_code");
+            }
+            if (key.equals("ro.csc.sales_code")) {
+              param.setResult("CHC");
+              log("SemSystemProperties: ro.csc.sales_code");
+            }
+          }
+        }
+    );
   }
 }

@@ -7,4 +7,5 @@ public class Packages {
   public static final String CAMERA = "com.sec.android.app.camera";
   public static final String BILIBILI_GOOGLE = "com.bilibili.app.in";
   public static final String BILIBILI = "tv.danmaku.bili";
+  public static final String CLOCK = "com.sec.android.app.clockpackage";
 }
