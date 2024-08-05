@@ -14,6 +14,19 @@ public class CameraHook {
   }
 
   public static void shutter() {
+
+    XposedHelpers.findAndHookMethod("z2.d", CameraHook.classLoader, "e",
+        XposedHelpers.findClass("z2.b", CameraHook.classLoader),
+        new XC_MethodHook() {
+          @Override
+          protected void beforeHookedMethod(MethodHookParam param) {
+            if (param.args[0].toString().equals("SUPPORT_SHUTTER_SOUND_MENU")) {
+              log("CameraHook: SUPPORT_SHUTTER_SOUND_MENU");
+              param.setResult(true);
+            }
+          }
+        });
+
     XposedHelpers.findAndHookMethod("android.os.SystemProperties", CameraHook.classLoader, "get", String.class,
         new XC_MethodHook() {
           @Override

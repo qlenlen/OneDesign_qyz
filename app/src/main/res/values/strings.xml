@@ -6,5 +6,6 @@
     <string name="SSRM_LOG">移除SSRM弹窗警告 √</string>
     <string name="TELE_LOG">使港版显示来电归属 √</string>
     <string name="BILI_LOG">解锁bilibili会员画质 √</string>
-    <string name="CLOCK_LOG">港版闹钟智能跳过节假日 √</string>
+    <string name="CLOCK_LOG">港版闹钟智能跳过节假日[new] √</string>
+    <string name="CAMERA_LOG">港版相机允许关闭快门声[new] √</string>
 </resources>
