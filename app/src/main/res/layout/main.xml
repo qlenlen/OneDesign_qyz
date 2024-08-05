@@ -67,6 +67,14 @@
           android:textColor="@android:color/black"
           android:textSize="18sp" />
 
+      <com.google.android.material.textview.MaterialTextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingBottom="8dp"
+          android:text="@string/CLOCK_LOG"
+          android:textColor="@android:color/black"
+          android:textSize="18sp" />
+
       <com.google.android.material.button.MaterialButton
           android:id="@+id/button_hide_icon"
           android:layout_width="wrap_content"
