@@ -10,8 +10,8 @@ android {
         applicationId "qyz.OneDesign"
         minSdk 33
         targetSdk 34
-        versionCode 240804
-        versionName "24.08.04"
+        versionCode 240805
+        versionName "24.08.05"
     }
 
     applicationVariants.configureEach { variant ->
