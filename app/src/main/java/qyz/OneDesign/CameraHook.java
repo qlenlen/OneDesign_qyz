@@ -24,6 +24,11 @@ public class CameraHook {
               log("CameraHook: SUPPORT_SHUTTER_SOUND_MENU");
               param.setResult(true);
             }
+
+            if (param.args[0].toString().equals("IS_COUNTRY_CHINA")) {
+              log("CameraHook: IS_COUNTRY_CHINA");
+              param.setResult(true);
+            }
           }
         });
 
