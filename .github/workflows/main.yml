@@ -3,10 +3,8 @@ permissions:
   contents: write
   discussions: write
 on:
+  workflow_dispatch:
   push:
-    branches:
-    pull_request:
-    workflow_dispatch:
 
 jobs:
   build:
@@ -32,8 +30,6 @@ jobs:
           chmod +x gradlew
           ./gradlew build
           tree app/build/outputs/apk/release
-          # APK_PATH=$(find app/build/outputs/apk/release -name "*.apk")
-          # cp $APK_PATH QyzDesign.apk
 
       - uses: r0adkll/sign-android-release@v1.0.4
         name: Sign app APK
@@ -86,8 +82,8 @@ jobs:
         with:
           allowUpdates: true
           removeArtifacts: true
-          name: ${{ env.TAG }}
-          tag: "CI_BUILD_${{ github.run_number }}"
+          name: "QyzDesign_${{ env.TAG }}"
+          tag: "CI_${{ env.TAG }}"
           body: |
             Build times: ${{ github.run_number }}
             Commit: ${{ github.sha }}
