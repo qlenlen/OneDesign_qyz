@@ -4,7 +4,6 @@ import static de.robv.android.xposed.XposedBridge.log;
 
 import android.content.Context;
 import android.os.Build;
-
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 

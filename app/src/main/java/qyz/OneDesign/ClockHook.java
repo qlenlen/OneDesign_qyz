@@ -14,24 +14,28 @@ public class ClockHook {
   }
 
   public static void holiday() {
-    XposedHelpers.findAndHookMethod("android.os.SemSystemProperties", ClockHook.classLoader, "getSalesCode",
+    XposedHelpers.findAndHookMethod(
+        "android.os.SemSystemProperties",
+        ClockHook.classLoader,
+        "getSalesCode",
         new XC_MethodReplacement() {
           @Override
           protected Object replaceHookedMethod(MethodHookParam param) {
-            log("QyzDesign: rewrite getSalesCode to CHC");
+            // log("QyzDesign: rewrite getSalesCode to CHC");
             return "CHC";
           }
-        }
-    );
+        });
 
-    XposedHelpers.findAndHookMethod("android.os.SemSystemProperties", ClockHook.classLoader, "getCountryIso",
+    XposedHelpers.findAndHookMethod(
+        "android.os.SemSystemProperties",
+        ClockHook.classLoader,
+        "getCountryIso",
         new XC_MethodReplacement() {
           @Override
           protected Object replaceHookedMethod(MethodHookParam param) {
             log("QyzDesign: rewrite getCountryIso to CN");
             return "CN";
           }
-        }
-    );
+        });
   }
 }

@@ -88,8 +88,7 @@ public class SettingHook {
               "com.android.settings.development.ForceDarkPreferenceController",
               SettingHook.classLoader),
           "onPreferenceChange",
-          XposedHelpers.findClassIfExists("androidx.preference.Preference",
-                  SettingHook.classLoader)
+          XposedHelpers.findClassIfExists("androidx.preference.Preference", SettingHook.classLoader)
               .newInstance(),
           true);
       log("ForceDarkPreferenceController onPerferenceChange");

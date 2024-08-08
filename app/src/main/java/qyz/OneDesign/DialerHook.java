@@ -2,6 +2,7 @@ package qyz.OneDesign;
 
 import static de.robv.android.xposed.XposedBridge.log;
 
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 
@@ -15,6 +16,33 @@ public class DialerHook {
   }
 
   public static void showLocInfo() {
+    // general hook
+    XposedHelpers.findAndHookMethod(
+        "android.os.SemSystemProperties",
+        DialerHook.classLoader,
+        "get",
+        String.class,
+        new XC_MethodHook() {
+          @Override
+          protected void beforeHookedMethod(MethodHookParam param) {
+            String key = (String) param.args[0];
+            log("SemSystemProperties: " + key);
+            if (key.equals("ro.csc.countryiso_code")) {
+              param.setResult("CN");
+              // log("ro.csc.countryiso_code");
+            }
+            if (key.equals("ro.csc.country_code")) {
+              param.setResult("China");
+              // log("ro.csc.country_code");
+            }
+            if (key.equals("ro.csc.sales_code")) {
+              param.setResult("CHC");
+              // log("SemSystemProperties: ro.csc.sales_code");
+            }
+          }
+        });
+
+    // specific hook
     try {
       XposedHelpers.findAndHookMethod(
           DialerHook.hookClassName,
