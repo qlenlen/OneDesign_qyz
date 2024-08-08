@@ -3,10 +3,8 @@ permissions:
   contents: write
   discussions: write
 on:
+  workflow_dispatch:
   push:
-    branches:
-    pull_request:
-    workflow_dispatch:
 
 jobs:
   build:
@@ -32,8 +30,6 @@ jobs:
           chmod +x gradlew
           ./gradlew build
           tree app/build/outputs/apk/release
-          # APK_PATH=$(find app/build/outputs/apk/release -name "*.apk")
-          # cp $APK_PATH QyzDesign.apk
 
       - uses: r0adkll/sign-android-release@v1.0.4
         name: Sign app APK
@@ -60,36 +56,20 @@ jobs:
           name: QyzDesign
           path: QyzDesign.apk
 
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.1.7
-
-      - name: Download APK
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: QyzDesign
-          path: .
-
       - name: Rename apk
         run: |
           ls -al
           DATE=$(date +'%y.%m.%d')
           echo "TAG=$DATE" >> $GITHUB_ENV
-          mv QyzDesign.apk QyzDesign[$DATE].apk
+          mv QyzDesign.apk QyzDesign_1.${{ github.run_number }}.0.apk
 
       - name: Upload release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
           removeArtifacts: true
-          name: ${{ env.TAG }}
-          tag: "CI_BUILD_${{ github.run_number }}"
+          name: "1.${{ github.run_number }}.0"
+          tag: "v1.${{ github.run_number }}.0"
           body: |
-            Build times: ${{ github.run_number }}
-            Commit: ${{ github.sha }}
             Note: use QyzDesign with [LSPosed](https://github.com/LSPosed/LSPosed/releases)
           artifacts: "*.apk"
